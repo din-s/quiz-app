@@ -1,10 +1,11 @@
 import React from 'react'
 
-const EditNote = ()=>{
+const EditNote = ({title})=>{
     return (
         <div>
+            <h3>Edit: </h3>
             <form>
-                <input id='title'/>
+                Title: <input id='title' value={title}/>
                 <button onClick={()=>{}}>Save Changes</button>
             </form>
         </div>

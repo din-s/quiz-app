@@ -1,58 +1,57 @@
 import React, { useState, useEffect, useReducer } from 'react'
-import {v4 as uuid } from 'uuid'
 import AddNoteForm from './AddNoteForm'
 import NoteList from './NoteList'
 import noteReducer from '../reducers/notes'
 import NoteSlider from './NoteSlider'
+import NotesContext from '../context/notes-context'
 
 const Notes = () => {
     // const [notes, setNotes] = useState([])
-// alternately we can do --------->>>>>>>>>
-    const [notes, dispatch] = useReducer(noteReducer,[]) // useReducer passes the state and dispatch here we have named the state
-    const [sortByAscending, setSortBy ] = useState(false)
-
-    const removeNote=(id)=>{
-        const action = {
-            type:'REMOVE_NOTE',
-            id
-        }
-        dispatch(action)
-        // setnotes(updates)
-    }
-
-    useEffect(()=>{
-    const loadedNotes = JSON.parse(localStorage.getItem('notes'))
-        if(loadedNotes){                                                
+    // alternately we can do --------->>>>>>>>>
+    const [notes, dispatch] = useReducer(noteReducer, []) // useReducer passes the state and dispatch here we have named the state
+    const [sortByAscending, setSortBy] = useState(false)
+    useEffect(() => {
+        const loadedNotes = JSON.parse(localStorage.getItem('notes'))
+        if (loadedNotes) {
             // setNotes(loadedNotes)
-            dispatch({type:'INIT_NOTES', notes:loadedNotes})
+            dispatch({ type: 'INIT_NOTES', notes: loadedNotes })
         }
-    },[])
+    }, [])
 
-    useEffect(()=>{
+    useEffect(() => {
         localStorage.setItem('notes', JSON.stringify(notes))
-    },[notes])
+    }, [notes])
 
- 
-   
-
+    // To create display type 
+    const [displayBy, setDisplayBy] = useState('slider')
+    
     return (
-        <div>
+        <NotesContext.Provider value={{ notes, dispatch }}>
             <div>
                 <h3>Add note</h3>
-                <AddNoteForm dispatch={dispatch}/>
+                <AddNoteForm />
             </div>
-    <h2>You have { notes.length} notes to display </h2>
-    Select display mode<select>
-    <option>Slider</option>
-    <option>NoteList</option>
-
-    </select>
-    {/* <button onClick={()=>setSortBy(!sortByAscending)}>Sortby:{sortByAscending? 'descending':'ascending'}</button> */}
-    <h2>{notes.length ===0 ? 'No notes to display' :`Your notes`}</h2>
-            {/* YET TO INCORPORATE */}
-            <NoteSlider notes={notes} slideNumber={1} removeNote={removeNote}/> 
-            {/* <NoteList notes={notes} removeNote={removeNote}/> */}
-        </div>
+            <div>
+                <form >
+                <h4>Display by</h4>
+                    <div className='Display-type'>
+                    <label>
+                        <input type='radio' value='slider' name='Display-type' onChange={(e)=>{setDisplayBy(e.target.value)}}/>
+                        Slider
+                    </label>
+                    <label>
+                        <input type='radio' value='list' name='Display-type' 
+                        onChange={(e)=>{setDisplayBy(e.target.value)}} />
+                        List
+                    </label>
+                    </div>
+                </form>
+            </div>
+            
+            <h2>{notes.length === 0 ? 'No notes to display' : `Your notes`}</h2>
+            {displayBy==='slider'? <NoteSlider/> : <NoteList notes={notes} />} 
+      
+        </NotesContext.Provider>
 
     )
 }

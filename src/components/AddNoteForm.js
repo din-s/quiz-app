@@ -1,6 +1,9 @@
-import React from 'react'
+import React,{ useContext } from 'react'
+import NotesContext from '../context/notes-context'
 import { v4 as uuid } from 'uuid'
-const AddNoteForm = ({dispatch}) => {
+const AddNoteForm = () => {
+
+    const {dispatch} = useContext(NotesContext)
 
     const addNote = (e) => {
         e.preventDefault()

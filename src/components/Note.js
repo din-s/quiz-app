@@ -1,15 +1,24 @@
 import edit_pen from '../images/edit_pen.png'
-import React from 'react'
-const Note = ({indv, removeNote})=>{
-    console.log('indv:',indv)
-    return(
-        <div>
-            <h2>Title:  {indv.title}  </h2>
-            <p> createdAt : {indv.createdAt}</p>
-            <button onClick={()=>removeNote(indv.id)}> X</button>
-            <button style={{backgroundImage:`url(${edit_pen})`}}></button>
-            <a href='#'><img src={edit_pen} alt={'edit'} style={{width:30,height:20}}/></a>
+import React, { useContext } from 'react'
+import NotesContext from '../context/notes-context'
+import EditNote from './EditNote'
+const Note = ({ note }) => {
 
+    const { dispatch } = useContext( NotesContext )
+
+    const removeNote=(id)=>{
+        const action ={
+            type:'REMOVE_NOTE',
+            id
+        }
+        dispatch(action)
+    }
+    return (
+        <div>
+            <h2>Title:  {note.title}  </h2>
+            <p> createdAt : {note.createdAt}</p>
+            <button onClick={() => removeNote(note.id)}> X</button>
+            <button onClick={() => <EditNote title={note.title} />} >Edit </button>
         </div>
     )
 }
