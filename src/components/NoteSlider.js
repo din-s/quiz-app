@@ -15,11 +15,13 @@ const NoteSlider=() =>{
             {notes.length >0 && <div>
                 <button disabled={slideToShow===0} onClick={()=>{setSlideToShow(0)}}>Reset</button>
             <button disabled={slideToShow===0} onClick={()=>setSlideToShow(slideToShow - 1)}>Prev</button>
-            <button disabled={slideToShow===notes.length-1} onClick={()=>setSlideToShow(slideToShow + 1)}>Next</button>
+            <button disabled={slideToShow>=notes.length-1} onClick={()=>setSlideToShow(slideToShow + 1)}>Next</button>
             {/* {console.log(notes[slideToShow])} */}
             
                 <p>{`Slide number : ${slideToShow+1} out of ${notes.length}`}</p>
-                <Note note={notes[slideToShow]}/>
+                {console.log(slideToShow % notes.length)}
+                
+                {<Note note={notes[slideToShow] || setSlideToShow(slideToShow % notes.length)}/>}
             </div>}
         </div>
     )

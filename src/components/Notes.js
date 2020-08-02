@@ -8,7 +8,7 @@ import NotesContext from '../context/notes-context'
 const Notes = () => {
     // const [notes, setNotes] = useState([])
     // alternately we can do --------->>>>>>>>>
-    const [notes, dispatch] = useReducer(noteReducer, []) // useReducer passes the state and dispatch here we have named the state
+    const [notes, dispatch] = useReducer(noteReducer, []) // useReducer passes the state and dispatch here we have renamed the state
     const [sortByAscending, setSortBy] = useState(false)
     useEffect(() => {
         const loadedNotes = JSON.parse(localStorage.getItem('notes'))
@@ -36,7 +36,7 @@ const Notes = () => {
                 <h4>Display by</h4>
                     <div className='Display-type'>
                     <label>
-                        <input type='radio' value='slider' name='Display-type' onChange={(e)=>{setDisplayBy(e.target.value)}}/>
+                        <input type='radio' value='slider' name='Display-type' onChange={(e)=>{setDisplayBy(e.target.value)} }/>
                         Slider
                     </label>
                     <label>
@@ -49,7 +49,7 @@ const Notes = () => {
             </div>
             
             <h2>{notes.length === 0 ? 'No notes to display' : `Your notes`}</h2>
-            {displayBy==='slider'? <NoteSlider/> : <NoteList notes={notes} />} 
+            {displayBy==='slider'? <NoteSlider/> : <NoteList />} 
       
         </NotesContext.Provider>
 
