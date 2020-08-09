@@ -1,9 +1,11 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 const Header = ()=>{
     return(
         <div>
-            <h2>Notes App</h2>
-            {/* <Link to='404'>Err: 404</Link> */}
+            <h2>QUIZ App</h2>
+            <Link to='/contact' >Contact</Link>
+            <Link to='/about' >About Us</Link>
         </div>
     )
 }
