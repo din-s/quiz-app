@@ -1,4 +1,4 @@
-export  const questions = [
+export  const quiz = [
     {
         question:'What is India\'s Capital',
         options:['Mumbai', 'Chennai', 'Delhi','Kolkata'],

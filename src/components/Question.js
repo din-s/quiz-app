@@ -1,5 +1,4 @@
-import React, { useContext } from 'react'
-import { questions } from '../fixtures/quiz'
+import React from 'react'
 // import NotesContext from '../context/notes-context'
 // import EditNote from './EditNote'
 const Question = ( {question, options ,answer} ) => {

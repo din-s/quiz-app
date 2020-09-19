@@ -1,7 +1,8 @@
-import React, {useState} from 'react'
-import Question from './Question'
-import {questions }from '../fixtures/quiz'
-const QuestionSlider = ()=>{
+import React, {useContext} from 'react'
+import { AppContext } from '../context/app'
+
+/**
+  const QuestionSlider = ()=>{
     const [ questionNumber , setQuestionNumber] = useState(0)
     const question = questions[questionNumber% questions.length ] 
     return (
@@ -14,5 +15,25 @@ const QuestionSlider = ()=>{
             <button onClick={()=>setQuestionNumber(questionNumber +1 ) }disabled={questionNumber === questions.length -1}>Next</button>
         </div>
     )
+}
+ * 
+ */
+
+
+const QuestionSlider = (WrappedComponent) => {
+    console.log('inside', useContext(AppContext))
+    // const {setToShow} = useContext(AppContext)
+    // console.log('content ', setToShow)
+    // const content = {
+    //     title:'Ti1',
+    //     description:'Somethng',
+    //     createdAt:'No tie '
+    // }
+    return (props) => {
+        const content = props.data[3]
+        return <div>
+                <WrappedComponent {...content}/>
+            </div>
+    }
 }
 export default QuestionSlider
